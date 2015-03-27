@@ -19,6 +19,16 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf('Aws\DynamoDb\DynamoDbClient', $this->conn->getConnector());
     }
 
+	/**
+	 * @depends testConnection
+	 */
+	public function testConnectionFromDynamoDbClient()
+	{
+		$dynamoDbClient = $this->conn->getConnector();
+		$newConnection = Connection::CreateFromDynamoDbClient($dynamoDbClient);
+		$this->assertSame($dynamoDbClient, $newConnection->getConnector());
+	}
+
     protected function createRangeItem($range)
     {
         $item = new Item(getenv('DY_TABLE_RANGE'));

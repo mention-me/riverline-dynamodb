@@ -2,9 +2,11 @@
 
 namespace Riverline\DynamoDB;
 
+use Riverline\DynamoDB\Exception\ConfigurationException;
 use Riverline\DynamoDB\Logger\Logger;
 
 use Aws\DynamoDb\DynamoDbClient;
+use Aws\Common\Exception\InvalidArgumentException;
 
 /**
  * @class
@@ -47,6 +49,24 @@ class Connection
         ));
     }
 
+	/**
+	 * @param DynamoDbClient $dynamoDbClient
+	 *
+	 * @return Connection
+	 * @throws ConfigurationException
+	 */
+	static public function CreateFromDynamoDbClient(DynamoDbClient $dynamoDbClient)
+	{
+		$apiVersion = $dynamoDbClient->getApiVersion();
+		if($apiVersion != '2011-12-05') {
+			throw new ConfigurationException("Api version '{$apiVersion}' is not supported");
+		}
+
+		$connection = new Connection(null, null, 'us-east-1');
+		$connection->setConnector($dynamoDbClient);
+		return $connection;
+	}
+
     /**
      * Set a logger for this connection
      * @param Logger $logger
@@ -76,6 +96,15 @@ class Connection
     {
         return $this->connector;
     }
+
+	/**
+	 * Set the DynamoDB object
+	 * @param DynamoDbClient $dynamoDbClient
+	 */
+	protected function setConnector(DynamoDbClient $dynamoDbClient)
+	{
+		$this->connector = $dynamoDbClient;
+	}
 
     /**
      * Return the number of read units consumed
