@@ -6,9 +6,12 @@
         <!--<env name="AWS_ACCESS_KEY" value="YOUR AWS ACCESS KEY" />-->
         <!--<env name="AWS_SECRET_KEY" value="YOUR AWS SECRET KEY" />-->
 
-        <env name="DY_TABLE"       value="Test" />
-        <env name="DY_TABLE_RANGE" value="TestRange" />
-        <env name="DY_TABLE_TMP"   value="TestTmp" />
+        <env name="DY_TABLE"       value="RiverlineTest" />
+        <env name="DY_TABLE_RANGE" value="RiverlineTestRange" />
+        <env name="DY_TABLE_TMP"   value="RiverlineTestTmp" />
+        <env name="DY_TABLE_TMP_VER" value="RiverlineTestTmpVersion" />
+
+        <env name="ITEM_ID" value="666" />
     </php>
 
     <testsuites>
