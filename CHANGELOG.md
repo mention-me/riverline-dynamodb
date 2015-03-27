@@ -1,6 +1,9 @@
 CHANGELOG
 =========
 
+* 2.0.5
+    * Tested with AWS PHP SDK 2.7.25
+
 * 2.0.4
     * Tested with AWS PHP SDK 2.4.6
 
