@@ -200,7 +200,9 @@ class CrudTest extends ConnectionTest
 
         foreach ($items as $item) {
             /** @var $item Item */
-            $this->assertSame(array (
+	        $arrayCopy = $item->getArrayCopy();
+	        ksort($arrayCopy);
+	        $this->assertSame(array (
                 'id'    => $id,
                 'name'  => 'test 456',
                 'range' => 456,
@@ -208,7 +210,7 @@ class CrudTest extends ConnectionTest
                     0 => 'one',
                     1 => 'two',
                 )
-            ), $item->getArrayCopy());
+            ), $arrayCopy);
 
             break;
         }
