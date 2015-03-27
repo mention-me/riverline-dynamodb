@@ -1,28 +1,24 @@
 {
-    "name":"riverline/dynamodb",
-    "description":"Amazon WebService DynamoDB PHP object wrapper",
+    "name":"mlarose/riverline-dynamodb",
+    "description":"Fork of riverline/dynamodb",
     "keywords":["dynamodb","aws","amazon"],
     "type":"library",
     "license":"MIT",
-    "authors":[
-        {
-            "name":"Romain Cambien",
-            "email":"romain@riverline.fr"
-        },
-        {
-            "name":"Riverline",
-            "homepage":"http://www.riverline.fr"
-        }
-    ],
-    "homepage": "https://github.com/rcambien/riverline-dynamodb",
+    "homepage": "https://github.com/mlarose/riverline-dynamodb",
     "minimum-stability": "stable",
     "require":{
         "php":">=5.3.5",
-        "aws/aws-sdk-php": ">=2.1.2,<2.5"
+        "aws/aws-sdk-php": ">=2.1.2,<3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">3.7,<4"
     },
     "autoload":{
         "psr-0":{
             "Riverline\\DynamoDB": "src/"
         }
+    },
+    "replace" : {
+      "riverline/dynamodb": ">=2.0.0,<3"
     }
 }
