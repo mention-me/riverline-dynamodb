@@ -2,7 +2,7 @@
 
 namespace Riverline\DynamoDB;
 
-use Aws\DynamoDb\Enum\Type;
+use Riverline\DynamoDB\Enum\Type;
 
 class TableOperationTest extends ConnectionTest
 {

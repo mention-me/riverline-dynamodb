@@ -2,7 +2,7 @@
 
 namespace Riverline\DynamoDB;
 
-use Aws\DynamoDb\Enum\AttributeAction;
+use Riverline\DynamoDB\Enum\AttributeAction;
 
 class UpdateActionTest extends \PHPUnit_Framework_TestCase
 {

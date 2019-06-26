@@ -4,7 +4,7 @@ namespace Riverline\DynamoDB;
 
 use \Riverline\DynamoDB\Exception\AttributesException;
 
-use Aws\DynamoDb\Enum\ComparisonOperator;
+use Riverline\DynamoDB\Enum\ComparisonOperator;
 
 /**
  * @class

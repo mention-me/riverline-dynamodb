@@ -2,9 +2,9 @@
 
 namespace Riverline\DynamoDB;
 
-use Aws\DynamoDb\Enum\ComparisonOperator;
-use Aws\DynamoDb\Enum\AttributeAction;
-use Aws\DynamoDb\Enum\ReturnValue;
+use Riverline\DynamoDB\Enum\ComparisonOperator;
+use Riverline\DynamoDB\Enum\AttributeAction;
+use Riverline\DynamoDB\Enum\ReturnValue;
 
 class CrudTest extends ConnectionTest
 {
