@@ -9,8 +9,8 @@ It speed up the manipulation of items and attributes
 
 ## Requirements
 
-* PHP 5.3.5
-* AWS PHP SDK 2.1.2
+* PHP 5.5
+* AWS PHP SDK 3.101.1
 
 ## Installation
 

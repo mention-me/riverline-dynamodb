@@ -33,20 +33,23 @@ class Connection
      * @param string $key The AWS access Key
      * @param string $secret The AWS secret Key
      * @param string $region The DynamoDB region endpoint
+     * @param string $version The DynamoDB API version
      * @throws \RuntimeException
      */
-    public function __construct($key, $secret, $region)
+    public function __construct($key, $secret, $region, $version = 'latest')
     {
         if (!class_exists('Aws\DynamoDb\DynamoDbClient')) {
             throw new \RuntimeException('Missing AWS PHP SDK');
         }
 
-        $this->connector = DynamoDbClient::factory(array(
-            'key'     => $key,
-            'secret'  => $secret,
-            'region'  => $region,
-            'version' => '2011-12-05'
-        ));
+        $this->connector = new DynamoDbClient([
+            'region' => $region,
+            'version' => $version,
+            'credentials' => [
+                'key' => $key,
+                'secret' => $secret
+            ]
+        ]);
     }
 
     /**
