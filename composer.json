@@ -1,10 +1,10 @@
 {
-    "name":"mlarose/riverline-dynamodb",
-    "description":"Fork of riverline/dynamodb",
+    "name":"mike-cramer/riverline-dynamodb",
+    "description":"Fork of mlarose/dynamodb",
     "keywords":["dynamodb","aws","amazon"],
     "type":"library",
     "license":"MIT",
-    "homepage": "https://github.com/mlarose/riverline-dynamodb",
+    "homepage": "https://github.com/mike-cramer/riverline-dynamodb",
     "minimum-stability": "stable",
     "require":{
         "php":">=5.5",
