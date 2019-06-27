@@ -2,6 +2,7 @@
 
 namespace Riverline\DynamoDB;
 
+use Aws\Result;
 use Riverline\DynamoDB\Exception\ConfigurationException;
 use Riverline\DynamoDB\Logger\Logger;
 
@@ -391,7 +392,7 @@ class Connection
             /** @var $attribute Attribute */
             $attributes[$name] = $attribute->getForDynamoDB();
         }
-        
+
         $parameters = array(
             'TableName'         => $table,
             'Key'               => $key,
@@ -867,21 +868,21 @@ class Connection
     }
 
     /**
-     * Extract the attributes array from response data
-     * @param \Guzzle\Service\Resource\Model $data The response body data
+     * @param Result $result
      * @return array|null
+     * @throws Exception\AttributesException
      */
-    protected function populateAttributes(\Guzzle\Service\Resource\Model $data)
+    protected function populateAttributes(Result $result)
     {
-        if (isset($data['Attributes'])) {
+        if ($result->get('Attributes')) {
             $attributes = array();
-            foreach ($data['Attributes'] as $name => $value) {
+            foreach ($result->get('Attributes') as $name => $value) {
                 list ($type, $value) = each($value);
                 $attributes[$name] = new Attribute($value, $type);
             }
             return $attributes;
-        } else {
-            return null;
         }
+
+        return null;
     }
 }
