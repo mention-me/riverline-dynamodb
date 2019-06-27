@@ -249,14 +249,15 @@ class Connection
     }
 
     /**
-     * Delete an item via the delete_item call
-     * @param string $table The item table
-     * @param mixed $hash The primary hash key
-     * @param mixed|null $range The primary range key
-     * @param Context\Delete|null $context The call context
+     * @param $table
+     * @param $hash
+     * @param null $range
+     * @param Context\Delete|null $context
+     * @param string $hashKey
      * @return array|null
+     * @throws Exception\AttributesException
      */
-    public function delete($table, $hash, $range = null, Context\Delete $context = null)
+    public function delete($table, $hash, $range = null, Context\Delete $context = null, $hashKey = 'id')
     {
         if (null !== $this->logger) {
             $this->log('Delete on table '.$table);
@@ -265,7 +266,7 @@ class Connection
         // Primary key
         $hash = new Attribute($hash);
         $key = array(
-            'HashKeyElement' => $hash->getForDynamoDB()
+            $hashKey => $hash->getForDynamoDB()
         );
 
         // Range key
@@ -307,7 +308,7 @@ class Connection
      * @param Context\Get|null $context The call context
      * @return Item|null
      */
-    public function get($table, $hash, $range = null, Context\Get $context = null)
+    public function get($table, $hash, $range = null, Context\Get $context = null, $hashKey = 'id')
     {
         if (null !== $this->logger) {
             $this->log('Get on table '.$table);
@@ -319,7 +320,7 @@ class Connection
         $parameters = array(
             'TableName' => $table,
             'Key'       => array(
-                'HashKeyElement' => $hash->getForDynamoDB()
+                $hashKey => $hash->getForDynamoDB()
             )
         );
 
@@ -367,7 +368,7 @@ class Connection
      * @return array|null
      * @throws Exception\AttributesException
      */
-    public function update($table, $hash, $range = null, AttributeUpdate $update, Context\Update $context = null)
+    public function update($table, $hash, $range = null, AttributeUpdate $update, Context\Update $context = null, $hashKey = 'id')
     {
         if (null !== $this->logger) {
             $this->log('Update on table'.$table);
@@ -376,7 +377,7 @@ class Connection
         // Primary key
         $hash = new Attribute($hash);
         $key = array(
-            'HashKeyElement' => $hash->getForDynamoDB()
+            $hashKey => $hash->getForDynamoDB()
         );
 
         // Range key
