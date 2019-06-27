@@ -258,7 +258,7 @@ class Connection
      * @return array|null
      * @throws Exception\AttributesException
      */
-    public function delete($table, $hash, $range = null, Context\Delete $context = null, $hashKey = 'id')
+    public function delete($table, $hash, $range = null, Context\Delete $context = null, $hashKey = 'id', $rangeKey = 'Timestamp')
     {
         if (null !== $this->logger) {
             $this->log('Delete on table '.$table);
@@ -273,7 +273,7 @@ class Connection
         // Range key
         if (null !== $range) {
             $range = new Attribute($range);
-            $key['RangeKeyElement'] = $range->getForDynamoDB();
+            $key[$rangeKey] = $range->getForDynamoDB();
         }
 
         $parameters = array(
@@ -309,7 +309,7 @@ class Connection
      * @param Context\Get|null $context The call context
      * @return Item|null
      */
-    public function get($table, $hash, $range = null, Context\Get $context = null, $hashKey = 'id')
+    public function get($table, $hash, $range = null, Context\Get $context = null, $hashKey = 'id', $rangeKey = 'Timestamp')
     {
         if (null !== $this->logger) {
             $this->log('Get on table '.$table);
@@ -328,7 +328,7 @@ class Connection
         // Range key
         if (null !== $range) {
             $range = new Attribute($range);
-            $parameters['Key']['RangeKeyElement'] = $range->getForDynamoDB();
+            $parameters['Key'][$rangeKey] = $range->getForDynamoDB();
         }
 
         if (null !== $context) {
@@ -369,7 +369,7 @@ class Connection
      * @return array|null
      * @throws Exception\AttributesException
      */
-    public function update($table, $hash, $range = null, AttributeUpdate $update, Context\Update $context = null, $hashKey = 'id')
+    public function update($table, $hash, $range = null, AttributeUpdate $update, Context\Update $context = null, $hashKey = 'id', $rangeKey = 'Timestamp')
     {
         if (null !== $this->logger) {
             $this->log('Update on table'.$table);
@@ -384,7 +384,7 @@ class Connection
         // Range key
         if (null !== $range) {
             $range = new Attribute($range);
-            $key['RangeKeyElement'] = $range->getForDynamoDB();
+            $key[$rangeKey] = $range->getForDynamoDB();
         }
 
         $attributes = array();
