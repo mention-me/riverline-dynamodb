@@ -110,8 +110,9 @@ class Item implements \ArrayAccess, \IteratorAggregate
     public function populateFromDynamoDB(array $data)
     {
         foreach ($data as $name => $value) {
-            list ($type, $value) = each($value);
-            $this->setAttribute($name, $value, $type);
+            foreach ($value as $type => $value) {
+                $this->setAttribute($name, $value, $type);
+            }
         }
     }
 
