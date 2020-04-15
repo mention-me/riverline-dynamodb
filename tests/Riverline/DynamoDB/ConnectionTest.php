@@ -25,7 +25,7 @@ class ConnectionTest extends \PHPUnit_Framework_TestCase
 	public function testConnectionFromDynamoDbClient()
 	{
 		$dynamoDbClient = $this->conn->getConnector();
-		$newConnection = Connection::CreateFromDynamoDbClient($dynamoDbClient);
+		$newConnection = new Connection($dynamoDbClient);
 		$this->assertSame($dynamoDbClient, $newConnection->getConnector());
 	}
 

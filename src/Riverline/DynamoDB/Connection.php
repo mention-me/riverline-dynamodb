@@ -31,44 +31,11 @@ class Connection
     protected $readUnit = array(), $writeUnit = array();
 
     /**
-     * @param string $key The AWS access Key
-     * @param string $secret The AWS secret Key
-     * @param string $region The DynamoDB region endpoint
-     * @param string $version The DynamoDB API version
-     * @throws \RuntimeException
-     */
-    public function __construct($key, $secret, $region, $version = 'latest')
-    {
-        if (!class_exists('Aws\DynamoDb\DynamoDbClient')) {
-            throw new \RuntimeException('Missing AWS PHP SDK');
-        }
-
-        $this->connector = new DynamoDbClient([
-            'region' => $region,
-            'version' => $version,
-            'credentials' => [
-                'key' => $key,
-                'secret' => $secret
-            ]
-        ]);
-    }
-
-    /**
      * @param DynamoDbClient $dynamoDbClient
-     *
-     * @return Connection
-     * @throws ConfigurationException
      */
-    static public function CreateFromDynamoDbClient(DynamoDbClient $dynamoDbClient)
+    public function __construct(DynamoDbClient $dynamoDbClient)
     {
-        $apiVersion = $dynamoDbClient->getApiVersion();
-        if($apiVersion != '2011-12-05') {
-            throw new ConfigurationException("Api version '{$apiVersion}' is not supported");
-        }
-
-        $connection = new Connection(null, null, 'us-east-1');
-        $connection->setConnector($dynamoDbClient);
-        return $connection;
+        $this->connector = new $dynamoDbClient;
     }
 
     /**
