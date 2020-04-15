@@ -35,7 +35,7 @@ class Connection
      */
     public function __construct(DynamoDbClient $dynamoDbClient)
     {
-        $this->connector = new $dynamoDbClient;
+        $this->connector = $dynamoDbClient;
     }
 
     /**
