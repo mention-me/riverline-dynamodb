@@ -2,7 +2,6 @@
 
 namespace Riverline\DynamoDB;
 
-use Aws\Credentials\Credentials;
 use Aws\Result;
 use Riverline\DynamoDB\Exception\ConfigurationException;
 use Riverline\DynamoDB\Logger\Logger;
@@ -15,8 +14,6 @@ use Aws\DynamoDb\DynamoDbClient;
  */
 class Connection
 {
-    const SUPPORTED_API_VERSION = '2012-08-10';
-
     /**
      * @var \Aws\DynamoDb\DynamoDbClient
      */
@@ -62,25 +59,15 @@ class Connection
      * @return Connection
      * @throws ConfigurationException
      */
-    public static function CreateFromDynamoDbClient(DynamoDbClient $dynamoDbClient)
+    static public function CreateFromDynamoDbClient(DynamoDbClient $dynamoDbClient)
     {
-        $apiVersion = $dynamoDbClient->getApi()->getApiVersion();
-
-        if ($apiVersion !== self::SUPPORTED_API_VERSION) {
-            throw new ConfigurationException("Api version '{$apiVersion}' is not supported, use " . self::SUPPORTED_API_VERSION);
+        $apiVersion = $dynamoDbClient->getApiVersion();
+        if($apiVersion != '2011-12-05') {
+            throw new ConfigurationException("Api version '{$apiVersion}' is not supported");
         }
 
-        /** @var Credentials $credentials */
-        $credentials = $dynamoDbClient->getCredentials()->wait();
-
-        $connection = new Connection(
-            $credentials->getAccessKeyId(),
-            $credentials->getSecretKey(),
-            $dynamoDbClient->getRegion()
-        );
-
+        $connection = new Connection(null, null, 'us-east-1');
         $connection->setConnector($dynamoDbClient);
-
         return $connection;
     }
 
